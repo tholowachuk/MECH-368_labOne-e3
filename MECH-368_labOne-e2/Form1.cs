@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace MECH_368_labOne_e2
 {
     public partial class QueueTest : Form
@@ -5,35 +7,46 @@ namespace MECH_368_labOne_e2
         //I do not know what this does. Microsoft docs continue to suck for new users.
         //presumably it's calling a new function (queue), allocating a 32-bit space for storage, and then naming a new instance of that storage 'dataQueue'. 
         public Queue<Int32> dataQueue = new Queue<Int32>();
-        
-        //maybe I can make a secondary queue that increments with every press of the 'Enqueue' button, and I can decrement it when I have collected the new value for display
-        public Queue<Int32> countQueue = new Queue<Int32>();
 
         //create a function to display items within a queue
-        public string UpdateQueue(string a, string b)
+        public void UpdateQueue(Queue<Int32> dataQueue, bool displayElements)
         {
-            //function UpdateQueue accepts arguments of the name of the queue you would like analyzed & either "c" or "n" as options; if "c", return is a string of contents of the queue, if "n", return is the number of elements in the queue
-            //2023-09-09 - future iterations should be more flexible in the queues that can be input for analysis; hardcoding is the act of a coward (but this is the wrong way to use a queue anyways)
-            if (a == "dataQueue" && b == "n")
+            //function UpdateQueue accepts arguments of the name of the queue you would like analyzed & either true/false as options; if true, return is a string of contents of the queue, if false, return is the number of elements in the queue
+            //uses a lambda expression - these are something I don't understand as well as I should in order to use, and need to do more research on
+            //2023-09-09 - future iterations should be more flexible in the queues that can be input for analysis; hardcoding is the act of a coward (but this is the wrong way to use a queue anyways
+            textBoxQueueContents.BeginInvoke((Action)(() =>
             {
-                return Convert.ToString(dataQueue.Count);
-            }
-
-            if (a == "dataQueue" && b == "c" && countQueue.Count >= 1)
-            {
-                countQueue.Dequeue();
-                foreach (int number in dataQueue)
+                //check to see if a change is needed for contents, use AppendText method if new items as stipulated in Lab (feels like a weird choice, but I might have missed something)
+                //could be more efficient with number of items count clear/append
+                if (displayElements)
                 {
-
+                    StringBuilder contents = new StringBuilder();
+                    foreach (int item in dataQueue)
+                    {
+                        contents.Append(item.ToString());
+                        if (item != dataQueue.Last())
+                        {
+                            contents.Append(", ");
+                        }
+                        else
+                        {
+                            contents.Append(Environment.NewLine);
+                        }
+                    }
+                    string result = contents.ToString();
+                    if (textBoxQueueContents.Text != result)
+                    {
+                        textBoxQueueContents.Clear();
+                        textBoxQueueContents.AppendText(contents.ToString());
+                    }
                 }
-                return "1";
-            }
-            else
-            {
-                return "";
-            }
+                else
+                {
+                    textBoxQueuedItems.Clear();
+                    textBoxQueuedItems.AppendText(Convert.ToString(dataQueue.Count));
+                }
+            }));
         }
-
         public QueueTest()
         {
             InitializeComponent();
@@ -49,13 +62,14 @@ namespace MECH_368_labOne_e2
         }
         private void queueTimer_Tick(object sender, EventArgs e)
         {
-            textBoxQueuedItems.Text = UpdateQueue("dataQueue", "n");
-            textBoxQueueContents.AppendText(Convert.ToString(UpdateQueue("dataQueue", "c")));
+            UpdateQueue(dataQueue, true);
+            UpdateQueue(dataQueue, false);
         }
 
         private void textBoxEnqueue_KeyPress(object sender, KeyPressEventArgs e)
         {
             //control types of input in textboxEnqueue, allowing only integers
+            //2023-09-09 - this seems like an intuitive sanitation, but may not be allowed or expected in this lab - check to see
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
@@ -75,7 +89,6 @@ namespace MECH_368_labOne_e2
             {
                 dataQueue.Enqueue(Convert.ToInt32(textBoxEnqueue.Text));
                 textBoxEnqueue.Clear();
-                countQueue.Enqueue(1);
             }
         }
 
@@ -91,6 +104,11 @@ namespace MECH_368_labOne_e2
                 MessageBox.Show("The queue is empty!", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
