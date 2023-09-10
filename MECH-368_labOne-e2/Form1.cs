@@ -74,12 +74,11 @@ namespace MECH_368_labOne_e2
             {
                 e.Handled = true;
             }
-
         }
 
         private void buttonEnqueue_Click(object sender, EventArgs e)
         {
-            //check whether the text box has anything to add to the queue, add if yes
+            //check whether the text box has anything to add to the queue, add if yes & not too powerful
             if (textBoxEnqueue.Text == "")
             {
                 MessageBox.Show("There is nothing to submit to the queue!", "Error",
@@ -87,8 +86,17 @@ namespace MECH_368_labOne_e2
             }
             else
             {
-                dataQueue.Enqueue(Convert.ToInt32(textBoxEnqueue.Text));
-                textBoxEnqueue.Clear();
+                //this section should conduct another sanitation for max values, but isn't working. It's a side project of a bug.
+                if (Convert.ToInt32(textBoxEnqueue.Text) < Int32.MaxValue)
+                {
+                    dataQueue.Enqueue(Convert.ToInt32(textBoxEnqueue.Text));
+                    textBoxEnqueue.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Your data are too powerful, friend!", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -106,9 +114,31 @@ namespace MECH_368_labOne_e2
             }
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void buttonDequeueAverage_Click(object sender, EventArgs e)
         {
+            //check if there's enough data in the queue to conduct averaging on
+            if (Convert.ToInt32(textBoxN.Text) > dataQueue.Count)
+            {
+                MessageBox.Show("There is not enough data to average!", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                //find how many points need to be dequeued
+                int n = Convert.ToInt32(textBoxN.Text);
 
+                //use a for loop to dequeue and sum - decimal precision
+                decimal sum = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    int value = dataQueue.Dequeue();
+                    sum += value;
+                }
+
+                //take the average, display it in the appropriate box
+                decimal average = sum / n;
+                textBoxAverage.Text = average.ToString();
+            }
         }
     }
 }
