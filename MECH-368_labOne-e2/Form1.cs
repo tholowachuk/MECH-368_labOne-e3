@@ -5,6 +5,9 @@ namespace MECH_368_labOne_e2
         //I do not know what this does. Microsoft docs continue to suck for new users.
         //presumably it's calling a new function (queue), allocating a 32-bit space for storage, and then naming a new instance of that storage 'dataQueue'. 
         public Queue<Int32> dataQueue = new Queue<Int32>();
+        
+        //maybe I can make a secondary queue that increments with every press of the 'Enqueue' button, and I can decrement it when I have collected the new value for display
+        public Queue<Int32> countQueue = new Queue<Int32>();
 
         //create a function to display items within a queue
         public string UpdateQueue(string a, string b)
@@ -16,17 +19,19 @@ namespace MECH_368_labOne_e2
                 return Convert.ToString(dataQueue.Count);
             }
 
-            if (a == "dataQueue" && b == "c")
+            if (a == "dataQueue" && b == "c" && countQueue.Count >= 1)
             {
+                countQueue.Dequeue();
                 foreach (int number in dataQueue)
                 {
 
                 }
-                return "0";
+                return "1";
             }
-
             else
-                return "0";
+            {
+                return "";
+            }
         }
 
         public QueueTest()
@@ -70,6 +75,7 @@ namespace MECH_368_labOne_e2
             {
                 dataQueue.Enqueue(Convert.ToInt32(textBoxEnqueue.Text));
                 textBoxEnqueue.Clear();
+                countQueue.Enqueue(1);
             }
         }
 
