@@ -48,7 +48,7 @@
             textBoxEnqueue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxEnqueue.Location = new Point(126, 12);
             textBoxEnqueue.Name = "textBoxEnqueue";
-            textBoxEnqueue.Size = new Size(100, 23);
+            textBoxEnqueue.Size = new Size(120, 23);
             textBoxEnqueue.TabIndex = 0;
             textBoxEnqueue.KeyPress += textBoxEnqueue_KeyPress;
             // 
@@ -57,15 +57,16 @@
             textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox2.Location = new Point(126, 41);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 23);
+            textBox2.Size = new Size(120, 23);
             textBox2.TabIndex = 1;
+            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // textBoxQueuedItems
             // 
             textBoxQueuedItems.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxQueuedItems.Location = new Point(126, 70);
             textBoxQueuedItems.Name = "textBoxQueuedItems";
-            textBoxQueuedItems.Size = new Size(100, 23);
+            textBoxQueuedItems.Size = new Size(120, 23);
             textBoxQueuedItems.TabIndex = 2;
             // 
             // textBox4
@@ -80,7 +81,7 @@
             textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBox5.Location = new Point(164, 128);
             textBox5.Name = "textBox5";
-            textBox5.Size = new Size(62, 23);
+            textBox5.Size = new Size(82, 23);
             textBox5.TabIndex = 4;
             // 
             // textBoxQueueContents
@@ -89,7 +90,7 @@
             textBoxQueueContents.Location = new Point(12, 182);
             textBoxQueueContents.Multiline = true;
             textBoxQueueContents.Name = "textBoxQueueContents";
-            textBoxQueueContents.Size = new Size(215, 107);
+            textBoxQueueContents.Size = new Size(235, 107);
             textBoxQueueContents.TabIndex = 5;
             // 
             // buttonEnqueue
@@ -126,7 +127,7 @@
             buttonDequeueAverage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             buttonDequeueAverage.Location = new Point(12, 99);
             buttonDequeueAverage.Name = "buttonDequeueAverage";
-            buttonDequeueAverage.Size = new Size(214, 23);
+            buttonDequeueAverage.Size = new Size(234, 23);
             buttonDequeueAverage.TabIndex = 9;
             buttonDequeueAverage.Text = "Dequeue and Average First N Data Points";
             buttonDequeueAverage.UseVisualStyleBackColor = true;
@@ -162,7 +163,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(239, 301);
+            ClientSize = new Size(259, 301);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -176,7 +177,7 @@
             Controls.Add(textBoxQueuedItems);
             Controls.Add(textBox2);
             Controls.Add(textBoxEnqueue);
-            MinimumSize = new Size(255, 340);
+            MinimumSize = new Size(275, 340);
             Name = "QueueTest";
             Text = "QueueTest";
             Load += Form1_Load;
