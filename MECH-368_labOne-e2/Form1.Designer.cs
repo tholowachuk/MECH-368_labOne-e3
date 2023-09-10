@@ -31,8 +31,8 @@
             textBoxEnqueue = new TextBox();
             textBox2 = new TextBox();
             textBoxQueuedItems = new TextBox();
-            textBox4 = new TextBox();
-            textBox5 = new TextBox();
+            textBoxN = new TextBox();
+            textBoxAverage = new TextBox();
             textBoxQueueContents = new TextBox();
             buttonEnqueue = new Button();
             buttonDequeue = new Button();
@@ -59,7 +59,6 @@
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(120, 23);
             textBox2.TabIndex = 1;
-            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // textBoxQueuedItems
             // 
@@ -69,20 +68,20 @@
             textBoxQueuedItems.Size = new Size(120, 23);
             textBoxQueuedItems.TabIndex = 2;
             // 
-            // textBox4
+            // textBoxN
             // 
-            textBox4.Location = new Point(37, 128);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(62, 23);
-            textBox4.TabIndex = 3;
+            textBoxN.Location = new Point(37, 128);
+            textBoxN.Name = "textBoxN";
+            textBoxN.Size = new Size(62, 23);
+            textBoxN.TabIndex = 3;
             // 
-            // textBox5
+            // textBoxAverage
             // 
-            textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox5.Location = new Point(164, 128);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(82, 23);
-            textBox5.TabIndex = 4;
+            textBoxAverage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxAverage.Location = new Point(164, 128);
+            textBoxAverage.Name = "textBoxAverage";
+            textBoxAverage.Size = new Size(82, 23);
+            textBoxAverage.TabIndex = 4;
             // 
             // textBoxQueueContents
             // 
@@ -131,6 +130,7 @@
             buttonDequeueAverage.TabIndex = 9;
             buttonDequeueAverage.Text = "Dequeue and Average First N Data Points";
             buttonDequeueAverage.UseVisualStyleBackColor = true;
+            buttonDequeueAverage.Click += buttonDequeueAverage_Click;
             // 
             // label2
             // 
@@ -172,8 +172,8 @@
             Controls.Add(buttonDequeue);
             Controls.Add(buttonEnqueue);
             Controls.Add(textBoxQueueContents);
-            Controls.Add(textBox5);
-            Controls.Add(textBox4);
+            Controls.Add(textBoxAverage);
+            Controls.Add(textBoxN);
             Controls.Add(textBoxQueuedItems);
             Controls.Add(textBox2);
             Controls.Add(textBoxEnqueue);
@@ -190,8 +190,8 @@
         private TextBox textBoxEnqueue;
         private TextBox textBox2;
         private TextBox textBoxQueuedItems;
-        private TextBox textBox4;
-        private TextBox textBox5;
+        private TextBox textBoxN;
+        private TextBox textBoxAverage;
         private TextBox textBoxQueueContents;
         private Button buttonEnqueue;
         private Button buttonDequeue;
