@@ -1,4 +1,4 @@
-namespace MECH_368_labOne_e2
+namespace MECH_368_labOne_e3
 {
     internal static class Program
     {
