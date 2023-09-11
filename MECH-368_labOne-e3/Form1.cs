@@ -1,4 +1,5 @@
 using System.Text;
+using System.Collections.Concurrent;
 
 namespace MECH_368_labOne_e3
 {
@@ -6,10 +7,10 @@ namespace MECH_368_labOne_e3
     {
         //I do not know what this does. Microsoft docs continue to suck for new users.
         //presumably it's calling a new function (queue), allocating a 32-bit space for storage, and then naming a new instance of that storage 'dataQueue'. 
-        public Queue<Int32> dataQueue = new Queue<Int32>();
+        public ConcurrentQueue<Int32> dataQueue = new ConcurrentQueue<Int32>();
 
         //create a function to display items within a queue
-        public void UpdateQueue(Queue<Int32> dataQueue, bool displayElements)
+        public void UpdateQueue(ConcurrentQueue<Int32> dataQueue, bool displayElements)
         {
             //function UpdateQueue accepts arguments of the name of the queue you would like analyzed & either true/false as options; if true, return is a string of contents of the queue, if false, return is the number of elements in the queue
             //uses a lambda expression - these are something I don't understand as well as I should in order to use, and need to do more research on
@@ -103,9 +104,9 @@ namespace MECH_368_labOne_e3
         private void buttonDequeue_Click(object sender, EventArgs e)
         {
             //check whether the queue has numbers to remove from the queue, remove if yes
-            if (dataQueue.Count() > 0)
+            if (dataQueue.TryDequeue(out int value))
             {
-                dataQueue.Dequeue();
+                
             }
             else
             {
@@ -131,8 +132,10 @@ namespace MECH_368_labOne_e3
                 decimal sum = 0;
                 for (int i = 0; i < n; i++)
                 {
-                    int value = dataQueue.Dequeue();
-                    sum += value;
+                    if (dataQueue.TryDequeue(out int value))
+                    {
+                        sum += value;
+                    }
                 }
 
                 //take the average, display it in the appropriate box
